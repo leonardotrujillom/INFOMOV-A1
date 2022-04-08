@@ -31,6 +31,7 @@ public:
 	static inline vector<float3> peaks;			// mountain peaks to evade
 	static inline vector<Particle*> sand;		// sand particles
 	static inline Grid grid;					// actor grid for faster range queries
+	static inline int coolDown = 0;				// used to prevent simultaneous firing
 };
 
 } // namespace Tmpl8

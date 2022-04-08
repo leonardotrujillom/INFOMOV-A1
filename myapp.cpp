@@ -22,8 +22,22 @@ void MyApp::Init()
 	// create armies
 	for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++)
 	{
-		Actor* army1Tank = new Tank( tank1, make_int2( 1500 + x * 40 + 20, 1800 - y * 40 + 20 ), make_int2( 2000, 1500 ), 0, 0 );
-		Actor* army2Tank = new Tank( tank2, make_int2( 2300 - x * 40, y * 40 + 700 ), make_int2( 2000, 1500 ), 10, 1 );
+		Actor* army1Tank = new Tank( tank1, make_int2( 520 + x * 32, 2420 - y * 32 ), make_int2( 5000, -500 ), 0, 0 );
+		Actor* army2Tank = new Tank( tank2, make_int2( 3300 - x * 32, y * 32 + 700 ), make_int2( -1000, 4000 ), 10, 1 );
+		actorPool.push_back( army1Tank );
+		actorPool.push_back( army2Tank );
+	}
+	for (int y = 0; y < 12; y++) for (int x = 0; x < 12; x++)
+	{
+		Actor* army1Tank = new Tank( tank1, make_int2( 40 + x * 32, 2620 - y * 32 ), make_int2( 5000, -500 ), 0, 0 );
+		Actor* army2Tank = new Tank( tank2, make_int2( 3900 - x * 32, y * 32 + 300 ), make_int2( -1000, 4000 ), 10, 1 );
+		actorPool.push_back( army1Tank );
+		actorPool.push_back( army2Tank );
+	}
+	for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++)
+	{
+		Actor* army1Tank = new Tank( tank1, make_int2( 1440 + x * 32, 2220 - y * 32 ), make_int2( 3500, -500 ), 0, 0 );
+		Actor* army2Tank = new Tank( tank2, make_int2( 2400 - x * 32, y * 32 + 900 ), make_int2( 1300, 4000 ), 128, 1 );
 		actorPool.push_back( army1Tank );
 		actorPool.push_back( army2Tank );
 	}
@@ -116,6 +130,7 @@ void MyApp::Tick( float deltaTime )
 		delete toDelete;
 		i--;
 	}
+	coolDown++;
 	for (int s = (int)actorPool.size(), i = 0; i < s; i++) actorPool[i]->Draw();
 	for (int s = (int)sand.size(), i = 0; i < s; i++) sand[i]->Draw();
 	int2 cursorPos = map.ScreenToMap( mousePos );

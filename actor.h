@@ -27,7 +27,7 @@ public:
 	bool Tick();
 	uint GetType() { return Actor::TANK; }
 	float2 target;
-	int army, delay = 0;
+	int army, coolDown = 0;
 	bool hitByBullet = false;
 };
 
