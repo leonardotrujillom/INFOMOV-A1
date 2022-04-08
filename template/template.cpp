@@ -1573,10 +1573,40 @@ void Surface::Plot( int x, int y, uint c )
 	pixels[x + y * width] = c;
 }
 
+void Surface::PlotBilerp( float x, float y, uint c )
+{
+	int2 intPos = make_int2( (int)x, (int)y );
+	float frac_x = x - intPos.x;
+	float frac_y = y - intPos.y;
+	int w1 = (int)(256 * ((1 - frac_x) * (1 - frac_y)));
+	int w2 = (int)(256 * (frac_x * (1 - frac_y)));
+	int w3 = (int)(256 * ((1 - frac_x) * frac_y));
+	int w4 = (int)(256 * (frac_x * frac_y));
+	Blend( intPos.x, intPos.y, c, w1 );
+	Blend( intPos.x + 1, intPos.y, c, w2 );
+	Blend( intPos.x, intPos.y + 1, c, w3 );
+	Blend( intPos.x + 1, intPos.y + 1, c, w4 );
+}
+
 void Surface::Blend( int x, int y, uint c, uint w )
 {
 	if (x < 0 || y < 0 || x >= width || y >= height) return;
 	pixels[x + y * width] = ScaleColor( c, w ) + ScaleColor( pixels[x + y * width], 255 - w );
+}
+
+void Surface::BlendBilerp( float x, float y, uint c, uint w )
+{
+	int2 intPos = make_int2( (int)x, (int)y );
+	float frac_x = x - intPos.x;
+	float frac_y = y - intPos.y;
+	int w1 = (int)(256 * ((1 - frac_x) * (1 - frac_y)));
+	int w2 = (int)(256 * (frac_x * (1 - frac_y)));
+	int w3 = (int)(256 * ((1 - frac_x) * frac_y));
+	int w4 = (int)(256 * (frac_x * frac_y));
+	Blend( intPos.x, intPos.y, c, (w1 * w) >> 8 );
+	Blend( intPos.x + 1, intPos.y, c, (w2 * w) >> 8 );
+	Blend( intPos.x, intPos.y + 1, c, (w3 * w) >> 8 );
+	Blend( intPos.x + 1, intPos.y + 1, c, (w4 * w) >> 8 );
 }
 
 uint Surface::Read( int x, int y )

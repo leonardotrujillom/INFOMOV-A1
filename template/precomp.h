@@ -88,7 +88,9 @@ public:
 	void Clear( uint c );
 	void Line( float x1, float y1, float x2, float y2, uint c );
 	void Plot( int x, int y, uint c );
+	void PlotBilerp( float x, float y, uint c );
 	void Blend( int x, int y, uint c, uint w );
+	void BlendBilerp( float x, float y, uint c, uint w );
 	uint Read( int x, int y );
 	void LoadImage( const char* file );
 	void CopyTo( Surface* dst, int x, int y );
@@ -262,6 +264,16 @@ inline uint ScaleColor( const uint c, const uint scale )
 	const uint ag = (((c & 0xff00ff00) >> 8) * scale) & 0xff00ff00;
 	return rb + ag;
 }
+inline uint AddBlend( const uint c1, const uint c2 )
+{
+	const uint r1 = (c1 >> 16) & 255, r2 = (c2 >> 16) & 255;
+	const uint g1 = (c1 >> 8) & 255, g2 = (c2 >> 8) & 255;
+	const uint b1 = c1 & 255, b2 = c2 & 255;
+	const uint r = min( 255u, r1 + r2 );
+	const uint g = min( 255u, g1 + g2 );
+	const uint b = min( 255u, b1 + b2 );
+	return (r << 16) + (g << 8) + b;
+}
 
 // random numbers
 uint RandomUInt();
@@ -287,6 +299,7 @@ inline float fminf( float a, float b ) { return a < b ? a : b; }
 inline float fmaxf( float a, float b ) { return a > b ? a : b; }
 inline float rsqrtf( float x ) { return 1.0f / sqrtf( x ); }
 inline float sqrf( float x ) { return x * x; }
+inline int sqr( int x ) { return x * x; }
 
 inline float2 make_float2( const float a, float b ) { float2 f2; f2.x = a, f2.y = b; return f2; }
 inline float2 make_float2( const float s ) { return make_float2( s, s ); }

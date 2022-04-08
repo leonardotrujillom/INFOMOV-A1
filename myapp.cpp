@@ -22,8 +22,8 @@ void MyApp::Init()
 	// create armies
 	for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++)
 	{
-		Actor* army1Tank = new Tank( tank1, make_int2( 500 + x * 40 + 20, 1800 - y * 40 + 20 ), make_int2( 2000, 1500 ), 0, 0 );
-		Actor* army2Tank = new Tank( tank2, make_int2( 3300 - x * 40, y * 40 + 700 ), make_int2( 2000, 1500 ), 10, 1 );
+		Actor* army1Tank = new Tank( tank1, make_int2( 1500 + x * 40 + 20, 1800 - y * 40 + 20 ), make_int2( 2000, 1500 ), 0, 0 );
+		Actor* army2Tank = new Tank( tank2, make_int2( 2300 - x * 40, y * 40 + 700 ), make_int2( 2000, 1500 ), 10, 1 );
 		actorPool.push_back( army1Tank );
 		actorPool.push_back( army2Tank );
 	}
@@ -42,9 +42,9 @@ void MyApp::Init()
 		int d = (RandomUInt() & 15) - 8;
 		sand.push_back( new Particle( bush[i % 3], make_int2( x, y ), map.bitmap->pixels[x + y * map.bitmap->width], d ) );
 	}
-	// place one flag for testing
+	// place flags
 	Surface* flagPattern = new Surface( "assets/flag.png" );
-	VerletFlag* flag1 = new VerletFlag( make_int2( 1872, 942 ), flagPattern );
+	VerletFlag* flag1 = new VerletFlag( make_int2( 3000, 848 ), flagPattern );
 	actorPool.push_back( flag1 );
 	VerletFlag* flag2 = new VerletFlag( make_int2( 1076, 1870 ), flagPattern );
 	actorPool.push_back( flag2 );
@@ -110,15 +110,16 @@ void MyApp::Tick( float deltaTime )
 	{
 		// actor got deleted, replace by last in list
 		Actor* lastActor = actorPool.back();
-		actorPool.pop_back();
 		Actor* toDelete = actorPool[i];
-		actorPool[i--] = lastActor;
+		actorPool.pop_back();
+		if (lastActor != toDelete) actorPool[i] = lastActor;
 		delete toDelete;
+		i--;
 	}
 	for (int s = (int)actorPool.size(), i = 0; i < s; i++) actorPool[i]->Draw();
 	for (int s = (int)sand.size(), i = 0; i < s; i++) sand[i]->Draw();
 	int2 cursorPos = map.ScreenToMap( mousePos );
-	pointer->Draw( map.bitmap, cursorPos, 0 );
+	pointer->Draw( map.bitmap, make_float2( cursorPos ), 0 );
 	// handle mouse
 	HandleInput();
 	// report frame time

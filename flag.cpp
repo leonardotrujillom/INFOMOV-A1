@@ -11,7 +11,7 @@ VerletFlag::VerletFlag( int2 location, Surface* pattern )
 	backup = new uint[width * height * 4];
 	memcpy( color, pattern->pixels, width * height * 4 );
 	for( int x = 0; x < width; x++ ) for( int y = 0; y < height; y++ )
-		pos[x + y * width] = make_float2( location.x - x * 1.2f, y * 1.5f + location.y );
+		pos[x + y * width] = make_float2( location.x - x * 1.2f, y * 1.2f + location.y );
 	memcpy( prevPos, pos, width * height * 8 );
 }
 
@@ -27,16 +27,7 @@ void VerletFlag::Draw()
 		backup[index * 4 + 2] = MyApp::map.bitmap->Read( intPos.x, intPos.y + 1 );
 		backup[index * 4 + 3] = MyApp::map.bitmap->Read( intPos.x + 1, intPos.y + 1 );
 		hasBackup = true;
-		float frac_x = pos[index].x - intPos.x;
-		float frac_y = pos[index].y - intPos.y;
-		int w1 = (int)(256 * ((1 - frac_x) * (1 - frac_y)));
-		int w2 = (int)(256 * (frac_x * (1 - frac_y)));
-		int w3 = (int)(256 * ((1 - frac_x) * frac_y));
-		int w4 = (int)(256 * (frac_x * frac_y));
-		MyApp::map.bitmap->Blend( intPos.x, intPos.y, color[index], w1 );
-		MyApp::map.bitmap->Blend( intPos.x + 1, intPos.y, color[index], w2 );
-		MyApp::map.bitmap->Blend( intPos.x, intPos.y + 1, color[index], w3 );
-		MyApp::map.bitmap->Blend( intPos.x + 1, intPos.y + 1, color[index], w4 );
+		MyApp::map.bitmap->PlotBilerp( pos[index].x, pos[index].y, color[index] );
 	}
 }
 
@@ -61,11 +52,11 @@ bool VerletFlag::Tick()
 		{
 			// small chance of a random nudge to add a bit of noise to the animation
 			float2 nudge = make_float2( RandomFloat() - 0.5f, RandomFloat() - 0.5f );
-			pos[index] += 0.5f * nudge;
+			pos[index] += nudge;
 		}
 	}
 	// constraints: limit distance
-	for( int i = 0; i < 15; i++)
+	for( int i = 0; i < 25; i++)
 	{
 		for( int x = 1; x < width; x++ ) for( int y = 0; y < height; y++ )
 		{
@@ -78,7 +69,7 @@ bool VerletFlag::Tick()
 				pos[index - 1] -= excess * 0.5f;
 			}
 		}
-		for (int y = 0; y < height; y++) pos[y * width] = polePos + make_float2( 0, y * 1.5f );
+		for (int y = 0; y < height; y++) pos[y * width] = polePos + make_float2( 0, y * 1.2f );
 	}
 	// all done
 	return true; // flags don't die

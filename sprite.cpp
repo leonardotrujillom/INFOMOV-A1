@@ -30,6 +30,17 @@ Sprite::Sprite( const char* fileName )
 	}
 }
 
+Sprite::Sprite( const char* fileName, int frames )
+{
+	// load original bitmap
+	Surface original( fileName );
+	// copy to internal data
+	frameCount = frames;
+	frameSize = original.width / frameCount;
+	pixels = new uint[frameSize * frameSize * frameCount];
+	memcpy( pixels, original.pixels, frameSize * frameSize * frameCount * 4 );
+}
+
 Sprite::Sprite( const char* fileName, int2 topLeft, int2 bottomRight, int size, int frames )
 {
 	// load original bitmap
@@ -124,12 +135,55 @@ void Sprite::ScaleAlpha( uint scale )
 	}
 }
 
-void SpriteInstance::Draw( Surface* target, int2 pos, int frame )
+void SpriteInstance::Draw( Surface* target, float2 pos, int frame )
+{
+	// save the area of target that we are about to overwrite
+	if (!backup) backup = new uint[sqr( sprite->frameSize + 1 )];
+	int2 intPos = make_int2( pos );
+	int x1 = intPos.x - sprite->frameSize / 2, x2 = x1 + sprite->frameSize;
+	int y1 = intPos.y - sprite->frameSize / 2, y2 = y1 + sprite->frameSize;
+	if (x1 < 0 || y1 < 0 || x2 >= target->width || y2 >= target->height)
+	{
+		// out of range; skip
+		lastTarget = 0;
+		return;
+	}
+	for (int v = 0; v < sprite->frameSize; v++) memcpy( backup + v * sprite->frameSize, target->pixels + x1 + (y1 + v) * target->width, sprite->frameSize * 4 );
+	lastPos = make_int2( x1, y1 );
+	lastTarget = target;
+	// calculate bilinear weights - these are constant in this case.
+	uint frac_x = (int)(255.0f * (pos.x - floorf( pos.x )));
+	uint frac_y = (int)(255.0f * (pos.y - floorf( pos.y )));
+	uint w0 = (frac_x * frac_y) >> 8;
+	uint w1 = ((255 - frac_x) * frac_y) >> 8;
+	uint w2 = (frac_x * (255 - frac_y)) >> 8;
+	uint w3 = ((255 - frac_x) * (255 - frac_y)) >> 8;
+	// draw the sprite frame
+	uint stride = sprite->frameCount * sprite->frameSize;
+	for (int v = 0; v < sprite->frameSize - 1; v++)
+	{
+		uint* dst = target->pixels + x1 + (y1 + v) * target->width;
+		uint* src = sprite->pixels + frame * sprite->frameSize + v * stride;
+		for (int u = 0; u < sprite->frameSize - 1; u++, src++, dst++ )
+		{
+			uint p0 = ScaleColor( src[0], w0 );
+			uint p1 = ScaleColor( src[1], w1 );
+			uint p2 = ScaleColor( src[stride], w2 );
+			uint p3 = ScaleColor( src[stride + 1], w3 );
+			uint pix = p0 + p1 + p2 + p3;
+			uint alpha = pix >> 24;
+			*dst = ScaleColor( pix, alpha ) + ScaleColor( *dst, 255 - alpha );
+		}
+	}
+}
+
+void SpriteInstance::DrawAdditive( Surface* target, float2 pos, int frame )
 {
 	// save the area of target that we are about to overwrite
 	if (!backup) backup = new uint[sprite->frameSize * sprite->frameSize];
-	int x1 = pos.x - sprite->frameSize / 2, x2 = pos.x + sprite->frameSize / 2;
-	int y1 = pos.y - sprite->frameSize / 2, y2 = pos.y + sprite->frameSize / 2;
+	int2 intPos = make_int2( pos );
+	int x1 = intPos.x - sprite->frameSize / 2, x2 = x1 + sprite->frameSize;
+	int y1 = intPos.y - sprite->frameSize / 2, y2 = y1 + sprite->frameSize;
 	if (x1 < 0 || y1 < 0 || x2 >= target->width || y2 >= target->height)
 	{
 		// out of range; skip
@@ -142,8 +196,7 @@ void SpriteInstance::Draw( Surface* target, int2 pos, int frame )
 	{
 		uint* dst = target->pixels + x1 + u + (y1 + v) * target->width;
 		uint pix = sprite->pixels[frame * sprite->frameSize + u + v * sprite->frameCount * sprite->frameSize];
-		uint alpha = pix >> 24;
-		*dst = ScaleColor( pix, alpha ) + ScaleColor( *dst, 255 - alpha );
+		*dst = AddBlend( *dst, pix );
 	}
 	// remember where we drew so it can be removed later
 	lastPos = make_int2( x1, y1 );
