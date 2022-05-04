@@ -1,0 +1,19 @@
+-r
+D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\VTune Profiler Results\Tanks22\r000hs
+--stack-stitching
+--data-limit-mb=1000
+--disk-space-limit=0
+--mrte-type=java,dotnet,python
+--stack-unwind-limit=8388608
+--itt-config=frame
+--itt-config=task,event,counter
+--stackwalk=offline
+--mrte-mode=auto
+--type=cpu:counters:nostack
+--type=cpu:stack
+--interval=10
+--duration
+30
+--app-working-dir=D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\
+--
+D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\x64\Tanks22.exe
