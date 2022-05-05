@@ -33,27 +33,62 @@ void VerletFlag::Draw()
 
 bool VerletFlag::Tick()
 {
-	// move vertices
-	for (int x = 0; x < width; x++) for (int y = 0; y < height; y++)
+	float windForce = 0.1f + 0.05f * RandomFloat();
+	float2 wind = windForce * normalize(make_float2(-1, (RandomFloat() * 0.5f) - 0.25f));
+
+	for (int x = 1; x < width; x++) for (int y = 0; y < height; y+=4)
 	{
+		// move vertices (loop 0)
 		int index = x + y * width;
 		float2 delta = pos[index] - prevPos[index];
 		prevPos[index] = pos[index];
-		pos[index] += delta;
-	}
-	// apply forces
-	float windForce = 0.1f + 0.05f * RandomFloat();
-	float2 wind = windForce * normalize( make_float2( -1, (RandomFloat() * 0.5f) - 0.25f ) );
-	for (int x = 1; x < width; x++) for (int y = 0; y < height; y++)
-	{
-		int index = x + y * width;
-		pos[index] += wind;
+
 		if ((RandomUInt() & 31) == 31) 
 		{
 			// small chance of a random nudge to add a bit of noise to the animation
 			float2 nudge = make_float2( RandomFloat() - 0.5f, RandomFloat() - 0.5f );
-			pos[index] += nudge;
+			delta += nudge;
 		}
+		pos[index] += delta + wind;
+
+		// move vertices (loop 1)
+		index = x + (y + 1) * width;
+		delta = pos[index] - prevPos[index];
+		prevPos[index] = pos[index];
+
+		if ((RandomUInt() & 31) == 31)
+		{
+			// small chance of a random nudge to add a bit of noise to the animation
+			float2 nudge = make_float2(RandomFloat() - 0.5f, RandomFloat() - 0.5f);
+			delta += nudge;
+		}
+		pos[index] += delta + wind;
+
+		// move vertices (loop 2)
+		index = x + (y + 2) * width;
+		delta = pos[index] - prevPos[index];
+		prevPos[index] = pos[index];
+
+		if ((RandomUInt() & 31) == 31)
+		{
+			// small chance of a random nudge to add a bit of noise to the animation
+			float2 nudge = make_float2(RandomFloat() - 0.5f, RandomFloat() - 0.5f);
+			delta += nudge;
+		}
+		pos[index] += delta + wind;
+
+		//// move vertices (loop 3)
+		index = x + (y + 3) * width;
+		delta = pos[index] - prevPos[index];
+		prevPos[index] = pos[index];
+
+		if ((RandomUInt() & 31) == 31)
+		{
+			// small chance of a random nudge to add a bit of noise to the animation
+			float2 nudge = make_float2(RandomFloat() - 0.5f, RandomFloat() - 0.5f);
+			delta += nudge;
+		}
+		pos[index] += delta + wind;
 	}
 	// constraints: limit distance
 	for( int i = 0; i < 25; i++)
