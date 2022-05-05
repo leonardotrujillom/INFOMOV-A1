@@ -2,13 +2,14 @@
 
 VerletFlag::VerletFlag( int2 location, Surface* pattern )
 {
-	width = pattern->width;
-	height = pattern->height;
+	width = pattern->width; //128
+	height = pattern->height; //48
 	polePos = make_float2( location );
 	pos = new float2[width * height];
 	prevPos = new float2[width * height];
 	color = new uint[width * height];
 	backup = new uint[width * height * 4];
+	//randomSqrtf = sqrtf(1.15f);
 	memcpy( color, pattern->pixels, width * height * 4 );
 	for( int x = 0; x < width; x++ ) for( int y = 0; y < height; y++ )
 		pos[x + y * width] = make_float2( location.x - x * 1.2f, y * 1.2f + location.y );
@@ -33,16 +34,16 @@ void VerletFlag::Draw()
 
 bool VerletFlag::Tick()
 {
+	// apply forces
 	float windForce = 0.1f + 0.05f * RandomFloat();
 	float2 wind = windForce * normalize(make_float2(-1, (RandomFloat() * 0.5f) - 0.25f));
 
-	for (int x = 1; x < width; x++) for (int y = 0; y < height; y+=4)
+	for (int x = 1; x < width; x++) for (int y = 0; y < height; y += 4)
 	{
 		// move vertices (loop 0)
 		int index = x + y * width;
 		float2 delta = pos[index] - prevPos[index];
 		prevPos[index] = pos[index];
-
 		if ((RandomUInt() & 31) == 31) 
 		{
 			// small chance of a random nudge to add a bit of noise to the animation
@@ -91,20 +92,39 @@ bool VerletFlag::Tick()
 		pos[index] += delta + wind;
 	}
 	// constraints: limit distance
+	int y;
+	float randomSqrtf = 1.07238053f;
+	//int xCor;
 	for( int i = 0; i < 25; i++)
 	{
-		for( int x = 1; x < width; x++ ) for( int y = 0; y < height; y++ )
+		for (int xCor = 1; xCor < width; xCor++)
 		{
-			int index = x + y * width;
-			float2 right = pos[index - 1] - pos[index];
-			if (sqrLength( right ) > sqrf( 1.15f ))
+			for (y = 0; y < height; y+=2)
 			{
-				float2 excess = right - normalize( right ) * 1.15f;
-				pos[index] += excess * 0.5f;
-				pos[index - 1] -= excess * 0.5f;
+				int index = xCor + y * width;
+				float2 right = pos[index - 1] - pos[index];
+				if (sqrLength(right) > randomSqrtf)
+				{
+					float2 excess = right - normalize(right) * 1.15f;
+					//float2 excessHalf = excess * 0.5f;
+					pos[index] += excess * 0.5f;
+					pos[index - 1] -= excess * 0.5f;
+				}
+				index = xCor + (y+1) * width;
+				right = pos[index - 1] - pos[index];
+				if (sqrLength(right) > randomSqrtf)
+				{
+					float2 excess = right - normalize(right) * 1.15f;
+					//float2 excessHalf = excess * 0.5f;
+					pos[index] += excess * 0.5f;
+					pos[index - 1] -= excess * 0.5f;
+				}
 			}
 		}
-		for (int y = 0; y < height; y++) pos[y * width] = polePos + make_float2( 0, y * 1.2f );
+		for (y = 0; y < height; y++)
+		{
+			pos[y * width] = polePos + make_float2(0, y * 1.2f);
+		}
 	}
 	// all done
 	return true; // flags don't die

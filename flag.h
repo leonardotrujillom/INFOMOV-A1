@@ -18,6 +18,7 @@ public:
 	uint* backup = 0;
 	bool hasBackup = false;
 	int width, height;
+	//float randomSqrtf;
 };
 
 } // namespace Tmpl8#pragma once

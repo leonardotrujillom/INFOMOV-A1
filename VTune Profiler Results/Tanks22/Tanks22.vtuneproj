@@ -306,6 +306,136 @@
      <recursive type="bool">false</recursive>
      <priority type="bool">false</priority>
     </searchDirectory>
+    <searchDirectory>
+     <name>D:\Projects\OPVEC\INFOMOV-A1\x64</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\HTML Help Workshop</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\libnvvp</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\dotnet\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\Intel\iCLS Client\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\Intel\iCLS Client\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\GtkSharp\2.12\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\Intel\WiFi\bin\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\Common Files\Intel\WirelessCommon\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\ProgramData\chocolatey\lib\lua53\tools</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\Brackets\command</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.3.1\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\OpenCV Build\x64\vc16\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\Programs\Python\Python310\Scripts\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\Programs\Python\Python310\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\Microsoft\WindowsApps</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\GitHubDesktop\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>D:\Programms\Rider\Rider for Unreal Engine 2020.3.4\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\gitkraken\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\Programs\Microsoft VS Code\bin</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Users\Frank Johan\AppData\Local\Programs\MiKTeX\miktex\bin\x64\</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>D:\Projects\OPVEC\INFOMOV-A1</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
    </searchCategory>
    <searchCategory>
     <category type="u8_t">2</category>
@@ -316,6 +446,16 @@
     </searchDirectory>
     <searchDirectory>
      <name>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>D:\Projects\OPVEC\INFOMOV-A1\x64</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>D:\Projects\OPVEC\INFOMOV-A1</name>
      <recursive type="bool">true</recursive>
      <priority type="bool">false</priority>
     </searchDirectory>
@@ -392,6 +532,41 @@
      <recursive type="bool">false</recursive>
      <priority type="bool">false</priority>
     </searchDirectory>
+    <searchDirectory>
+     <name>D:\Projects\OPVEC\INFOMOV-A1</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>template</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>lib\glad</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>lib\glfw\include</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>lib\OpenCL\inc</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>lib\zlib</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name>C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\Include\um</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
    </searchCategory>
    <searchCategory>
     <category type="u8_t">4</category>
@@ -409,13 +584,13 @@
       <workload>
        <targetName>launch</targetName>
        <system.duration>30</system.duration>
-       <launch_app.app_to_launch>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\x64\Tanks22.exe</launch_app.app_to_launch>
+       <launch_app.app_to_launch>D:\Projects\OPVEC\INFOMOV-A1\x64\Tanks22.exe</launch_app.app_to_launch>
        <launch_app.app_parameters></launch_app.app_parameters>
        <launch_app.environment></launch_app.environment>
        <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
-       <launch_app.working_folder>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\</launch_app.working_folder>
-       <launch.userappworkdir>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\</launch.userappworkdir>
-       <result_directory.path>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\VTune Profiler Results\Tanks22\r@@@{at}</result_directory.path>
+       <launch_app.working_folder>D:\Projects\OPVEC\INFOMOV-A1\</launch_app.working_folder>
+       <launch.userappworkdir>D:\Projects\OPVEC\INFOMOV-A1\</launch.userappworkdir>
+       <result_directory.path>D:\Projects\OPVEC\INFOMOV-A1\VTune Profiler Results\Tanks22\r@@@{at}</result_directory.path>
        <context>
         <contextValue>
          <id>allowMultipleRuns</id>
