@@ -59,8 +59,8 @@ void MyApp::Init()
 	// place flags
 	Surface* flagPattern = new Surface( "assets/flag.png" );
 
-	for (int i = 0; i < 1000; i++) {
-		int randX = rand() % 3000, randY = rand() % 2000;
+	for (int i = 0; i < 1024; i++) {
+		int randX = (i % 16 + 1) << 8, randY = (i / 16) << 8;
 		VerletFlag* flag1 = new VerletFlag(make_int2(randX, randY), flagPattern);
 		actorPool.push_back(flag1);
 	}
