@@ -17,7 +17,7 @@ public:
 	uint* color = 0;
 	uint* backup = 0;
 	bool hasBackup = false;
-	int width, height;
+	int width, height, dims;
 	//float randomSqrtf;
 };
 

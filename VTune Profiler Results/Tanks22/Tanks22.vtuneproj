@@ -583,14 +583,16 @@
      <launch type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
       <workload>
        <targetName>launch</targetName>
-       <system.duration>30</system.duration>
-       <launch_app.app_to_launch>D:\Projects\OPVEC\INFOMOV-A1\x64\Tanks22.exe</launch_app.app_to_launch>
+       <launch_app.resume_after type="s32_t">60000</launch_app.resume_after>
+       <launch_app.start_paused type="bool">true</launch_app.start_paused>
+       <system.duration>120</system.duration>
+       <launch_app.app_to_launch>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\x64\Tanks22.exe</launch_app.app_to_launch>
        <launch_app.app_parameters></launch_app.app_parameters>
        <launch_app.environment></launch_app.environment>
        <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
-       <launch_app.working_folder>D:\Projects\OPVEC\INFOMOV-A1\</launch_app.working_folder>
-       <launch.userappworkdir>D:\Projects\OPVEC\INFOMOV-A1\</launch.userappworkdir>
-       <result_directory.path>D:\Projects\OPVEC\INFOMOV-A1\VTune Profiler Results\Tanks22\r@@@{at}</result_directory.path>
+       <launch_app.working_folder>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\</launch_app.working_folder>
+       <launch.userappworkdir>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\</launch.userappworkdir>
+       <result_directory.path>D:\Documents\OneDrive - Universiteit Utrecht\Optimization Vectorization\assignments\A1\VTune Profiler Results\Tanks22\r@@@{at}</result_directory.path>
        <context>
         <contextValue>
          <id>allowMultipleRuns</id>
@@ -776,5 +778,11 @@
    </localhost>
   </analysis_type_settings>
  </All_Configurations-All_Platforms>
+ <engine>
+  <knobs>
+   <calleeAttributionMode>topSystem</calleeAttributionMode>
+   <loopAttributionMode>loopAndFunction</loopAttributionMode>
+  </knobs>
+ </engine>
  <contextValues type="bag"/>
 </root>
