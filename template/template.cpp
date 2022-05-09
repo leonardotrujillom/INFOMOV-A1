@@ -253,13 +253,14 @@ void main()
 		"void main(){f=vec4(sqrt(fxaa(vec2(1240,800),uv)),1);}", true );
 #endif
 	float deltaTime = 0;
+	float avgFrameTime = 0;
 	static int frameNr = 0;
 	static Timer timer;
-	while (!glfwWindowShouldClose( window ))
+	while (!glfwWindowShouldClose( window ) && frameNr < 50)
 	{
 		deltaTime = min( 500.0f, 1000.0f * timer.elapsed() );
 		timer.reset();
-		app->Tick( deltaTime );
+		float frameTime = app->Tick( deltaTime );
 		// send the rendering result to the screen using OpenGL
 		if (frameNr++ > 1)
 		{
@@ -270,9 +271,17 @@ void main()
 			shader->Unbind();
 			glfwSwapBuffers( window );
 			glfwPollEvents();
+			avgFrameTime += frameTime;
+		}
+		else {
+			avgFrameTime = frameTime;
 		}
 		if (!running) break;
 	}
+	ofstream myfile;
+	myfile.open("extras/results.txt");
+	myfile << "Avg frame time: " << avgFrameTime / frameNr << endl;
+	myfile.close();
 	// close down
 	app->Shutdown();
 	Kernel::KillCL();

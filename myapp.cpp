@@ -113,7 +113,7 @@ void MyApp::HandleInput()
 // -----------------------------------------------------------
 // Main application tick function - Executed once per frame
 // -----------------------------------------------------------
-void MyApp::Tick( float deltaTime )
+float MyApp::Tick( float deltaTime )
 {
 	Timer t;
 	// draw the map
@@ -145,6 +145,7 @@ void MyApp::Tick( float deltaTime )
 	HandleInput();
 	// report frame time
 	static float frameTimeAvg = 10.0f; // estimate
-	frameTimeAvg = 0.95f * frameTimeAvg + 0.05f * t.elapsed() * 1000;
+	frameTimeAvg = t.elapsed() * 1000;
 	printf( "frame time: %5.2fms\n", frameTimeAvg );
+	return frameTimeAvg;
 }

@@ -9,7 +9,7 @@ public:
 	// game flow methods
 	void Init();
 	void HandleInput();
-	void Tick( float deltaTime );
+	float Tick( float deltaTime );
 	void Shutdown() { /* implement if you want to do something on exit */ }
 	// input handling
 	void MouseUp( int button ) { mouseDown = false; }
