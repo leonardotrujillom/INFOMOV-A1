@@ -256,7 +256,7 @@ void main()
 	float avgFrameTime = 0;
 	static int frameNr = 0;
 	static Timer timer;
-	while (!glfwWindowShouldClose( window ) && frameNr < 50)
+	while (!glfwWindowShouldClose( window ))
 	{
 		deltaTime = min( 500.0f, 1000.0f * timer.elapsed() );
 		timer.reset();
@@ -276,12 +276,14 @@ void main()
 		else {
 			avgFrameTime = frameTime;
 		}
+		if (frameNr == 50) {
+			ofstream myfile;
+			myfile.open("extras/results.txt");
+			myfile << "Avg frame time: " << avgFrameTime / frameNr << endl;
+			myfile.close();
+		}
 		if (!running) break;
 	}
-	ofstream myfile;
-	myfile.open("extras/results.txt");
-	myfile << "Avg frame time: " << avgFrameTime / frameNr << endl;
-	myfile.close();
 	// close down
 	app->Shutdown();
 	Kernel::KillCL();
